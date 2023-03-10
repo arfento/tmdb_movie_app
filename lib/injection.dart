@@ -15,7 +15,9 @@ import 'package:tmdb_movies_app/data/usecases/movie_usecase/remove_watchlist.dar
 import 'package:tmdb_movies_app/data/usecases/movie_usecase/save_watchlist.dart';
 import 'package:tmdb_movies_app/data/usecases/movie_usecase/search_movies.dart';
 import 'package:http/http.dart' as http;
+import 'package:tmdb_movies_app/views/provider/movie_detail_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/movie_list_notifier.dart';
+import 'package:tmdb_movies_app/views/provider/movie_search_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/popular_movies_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/top_rated_movies_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/watchlist_movies_notifier.dart';
@@ -30,6 +32,20 @@ void init() {
       getPopularMovies: locator(),
       getTopRatedMovies: locator(),
     ),
+  );
+
+  locator.registerFactory(
+    () => MovieDetailNotifier(
+      getMovieDetail: locator(),
+      getMovieRecommendations: locator(),
+      getWatchlistStatus: locator(),
+      saveWatchlist: locator(),
+      removeWatchlist: locator(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => MovieSearchNotifier(searchMovies: locator()),
   );
   locator.registerFactory(
     () => PopularMoviesNotifier(getPopularMovies: locator()),

@@ -11,7 +11,9 @@ import 'package:tmdb_movies_app/views/pages/popular_movies_page.dart';
 import 'package:tmdb_movies_app/views/pages/search_page.dart';
 import 'package:tmdb_movies_app/views/pages/top_rated_movies_page.dart';
 import 'package:tmdb_movies_app/views/pages/watchlist_movies_page.dart';
+import 'package:tmdb_movies_app/views/provider/movie_detail_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/movie_list_notifier.dart';
+import 'package:tmdb_movies_app/views/provider/movie_search_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/watchlist_movies_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/top_rated_movies_notifier.dart';
 import 'package:tmdb_movies_app/views/provider/popular_movies_notifier.dart';
@@ -41,6 +43,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<WatchlistMovieNotifier>(
           create: (_) => di.locator<WatchlistMovieNotifier>(),
         ),
+        ChangeNotifierProvider<MovieDetailNotifier>(
+          create: (_) => di.locator<MovieDetailNotifier>(),
+        ),
+        ChangeNotifierProvider<MovieSearchNotifier>(
+          create: (_) => di.locator<MovieSearchNotifier>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -55,9 +63,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/home':
-              return MaterialPageRoute(
-                builder: (_) => const HomeMoviePage(),
-              );
+              return MaterialPageRoute(builder: (_) => const HomeMoviePage());
             case PopularMoviesPage.ROUTE_NAME:
               return CupertinoPageRoute(
                   builder: (_) => const PopularMoviesPage());
