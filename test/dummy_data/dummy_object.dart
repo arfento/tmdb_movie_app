@@ -1,6 +1,6 @@
-import 'package:tmdb_movies_app/data/models/entities/genre.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie_detail.dart';
+import 'package:tmdb_movies_app/domain/entities/genre.dart';
+import 'package:tmdb_movies_app/domain/entities/movie.dart';
+import 'package:tmdb_movies_app/domain/entities/movie_detail.dart';
 import 'package:tmdb_movies_app/data/models/movie_table.dart';
 
 final testMovieTable = MovieTable(

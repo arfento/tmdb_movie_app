@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tmdb_movies_app/common/constants.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie.dart';
+import 'package:tmdb_movies_app/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_movies_app/views/pages/movie_detail_page.dart';
 

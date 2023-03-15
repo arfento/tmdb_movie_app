@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie.dart';
+import 'package:tmdb_movies_app/domain/entities/movie.dart';
 
 class MovieModel extends Equatable {
   const MovieModel({

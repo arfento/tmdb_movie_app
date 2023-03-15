@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tmdb_movies_app/common/exception.dart';
 import 'package:tmdb_movies_app/common/failure.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie.dart';
+import 'package:tmdb_movies_app/domain/entities/movie.dart';
 import 'package:tmdb_movies_app/data/models/genre_model.dart';
 import 'package:tmdb_movies_app/data/models/movie_detail_model.dart';
 import 'package:tmdb_movies_app/data/models/movie_model.dart';

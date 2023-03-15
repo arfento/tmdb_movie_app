@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 import 'package:equatable/equatable.dart';
-import 'package:tmdb_movies_app/data/models/entities/genre.dart';
+import 'package:tmdb_movies_app/domain/entities/genre.dart';
 
 class GenreModel extends Equatable {
   const GenreModel({

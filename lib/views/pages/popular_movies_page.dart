@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb_movies_app/common/state_enum.dart';
-import 'package:tmdb_movies_app/views/provider/popular_movies_notifier.dart';
+import 'package:tmdb_movies_app/views/provider/movie_provider/popular_movies_notifier.dart';
 import 'package:tmdb_movies_app/views/widgets/movie_card_list.dart';
 
 class PopularMoviesPage extends StatefulWidget {

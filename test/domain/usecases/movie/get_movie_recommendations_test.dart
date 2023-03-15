@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie.dart';
-import 'package:tmdb_movies_app/data/usecases/movie_usecase/get_movie_recommendations.dart';
+import 'package:tmdb_movies_app/domain/entities/movie.dart';
+import 'package:tmdb_movies_app/domain/usecases/movie_usecase/get_movie_recommendations.dart';
 
 import '../../../helpers/test_helper.mocks.dart';
 

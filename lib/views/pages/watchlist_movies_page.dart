@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb_movies_app/common/state_enum.dart';
-import 'package:tmdb_movies_app/views/provider/watchlist_movies_notifier.dart';
+import 'package:tmdb_movies_app/common/utils.dart';
+import 'package:tmdb_movies_app/views/provider/movie_provider/watchlist_movies_notifier.dart';
 import 'package:tmdb_movies_app/views/widgets/movie_card_list.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
@@ -13,7 +14,8 @@ class WatchlistMoviesPage extends StatefulWidget {
   _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
 }
 
-class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
+class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
+    with RouteAware {
   @override
   void initState() {
     super.initState();
@@ -23,11 +25,19 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  void didPopNext() {
+    Provider.of<WatchlistMovieNotifier>(context, listen: false)
+        .fetchWatchlistMovies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Watchlist Movies'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<WatchlistMovieNotifier>(
@@ -55,5 +65,11 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
   }
 }

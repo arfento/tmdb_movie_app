@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tmdb_movies_app/data/usecases/movie_usecase/get_watchlist_status.dart';
+import 'package:tmdb_movies_app/domain/usecases/movie_usecase/get_watchlist_status.dart';
 
 import '../../../helpers/test_helper.mocks.dart';
 

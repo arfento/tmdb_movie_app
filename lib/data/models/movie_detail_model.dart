@@ -1,4 +1,4 @@
-import 'package:tmdb_movies_app/data/models/entities/movie_detail.dart';
+import 'package:tmdb_movies_app/domain/entities/movie_detail.dart';
 
 import 'genre_model.dart';
 import 'package:equatable/equatable.dart';

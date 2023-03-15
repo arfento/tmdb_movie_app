@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb_movies_app/common/state_enum.dart';
-import 'package:tmdb_movies_app/views/provider/top_rated_movies_notifier.dart';
+import 'package:tmdb_movies_app/views/provider/movie_provider/top_rated_movies_notifier.dart';
 import 'package:tmdb_movies_app/views/widgets/movie_card_list.dart';
 
 class TopRatedMoviesPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Popular Movies'),
+        title: const Text('Top Rated Movies'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

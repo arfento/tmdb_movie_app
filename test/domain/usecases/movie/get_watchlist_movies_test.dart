@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tmdb_movies_app/data/usecases/movie_usecase/get_watchlist_movies.dart';
+import 'package:tmdb_movies_app/domain/usecases/movie_usecase/get_watchlist_movies.dart';
 
 import '../../../dummy_data/dummy_object.dart';
 import '../../../helpers/test_helper.mocks.dart';

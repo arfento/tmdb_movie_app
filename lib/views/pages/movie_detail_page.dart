@@ -4,10 +4,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb_movies_app/common/constants.dart';
 import 'package:tmdb_movies_app/common/state_enum.dart';
-import 'package:tmdb_movies_app/data/models/entities/genre.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie.dart';
-import 'package:tmdb_movies_app/data/models/entities/movie_detail.dart';
-import 'package:tmdb_movies_app/views/provider/movie_detail_notifier.dart';
+import 'package:tmdb_movies_app/domain/entities/genre.dart';
+import 'package:tmdb_movies_app/domain/entities/movie.dart';
+import 'package:tmdb_movies_app/domain/entities/movie_detail.dart';
+import 'package:tmdb_movies_app/views/provider/movie_provider/movie_detail_notifier.dart';
 
 class MovieDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/detail';

@@ -8,7 +8,8 @@ import 'package:tmdb_movies_app/views/pages/popular_movies_page.dart';
 import 'package:tmdb_movies_app/views/pages/search_page.dart';
 import 'package:tmdb_movies_app/views/pages/top_rated_movies_page.dart';
 import 'package:tmdb_movies_app/views/pages/watchlist_movies_page.dart';
-import 'package:tmdb_movies_app/views/provider/movie_list_notifier.dart';
+import 'package:tmdb_movies_app/views/provider/movie_provider/movie_list_notifier.dart';
+import 'package:tmdb_movies_app/views/widgets/custom_drawer.dart';
 
 class HomeMoviePage extends StatefulWidget {
   static const ROUTE_NAME = '/home';
@@ -33,46 +34,14 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            const UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png'),
-              ),
-              accountName: Text("My Movies"),
-              accountEmail: Text("arfento@gmail.com"),
-            ),
-            ListTile(
-              leading: const Icon(Icons.movie),
-              title: const Text("Movies"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.save_alt),
-              title: const Text("Watchlist"),
-              onTap: () {
-                Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
-              },
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
-              },
-              leading: const Icon(Icons.info_outline),
-              title: const Text('About'),
-            ),
-          ],
-        ),
-      ),
+      drawer: CustomDrawer(),
       appBar: AppBar(
         title: const Text('My Movies'),
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+                Navigator.pushNamed(context, SearchPage.ROUTE_NAME,
+                    arguments: true);
               },
               icon: const Icon(Icons.search)),
         ],
