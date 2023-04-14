@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:tmdb_movies_app/common/state_enum.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/on_the_air_tvs_notifier.dart';
+import 'package:tmdb_movies_app/views/bloc/on_the_air_tvs_bloc/on_the_air_tvs_bloc.dart';
 import 'package:tmdb_movies_app/views/widgets/tv_card_list.dart';
 
 class OnTheAirTvsPage extends StatefulWidget {
@@ -16,9 +16,8 @@ class _OnTheAirTvsPageState extends State<OnTheAirTvsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<OnTheAirTvsNotifier>(context, listen: false)
-            .fetchOnTheAirTv());
+    Future.microtask(() => Provider.of<OnTheAirTvsBloc>(context, listen: false)
+        .add(FetchOnTheAirTvs()));
   }
 
   @override
@@ -29,25 +28,28 @@ class _OnTheAirTvsPageState extends State<OnTheAirTvsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<OnTheAirTvsNotifier>(
-          builder: (context, value, child) {
-            final state = value.state;
-            if (state == RequestState.Loading) {
+        child: BlocBuilder<OnTheAirTvsBloc, OnTheAirTvsState>(
+          builder: (context, state) {
+            if (state is OnTheAirTvLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state == RequestState.Loaded) {
+            } else if (state is OnTheAirTvHasData) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = value.tvs[index];
+                  final tv = state.listTv[index];
                   return TvCard(tv);
                 },
-                itemCount: value.tvs.length,
+                itemCount: state.listTv.length,
               );
-            } else {
+            } else if (state is OnTheAirTvError) {
               return Center(
                 key: const Key('error_message'), // key to test app
-                child: Text(value.message),
+                child: Text(state.message),
+              );
+            } else {
+              return const Center(
+                child: Text("Failed"),
               );
             }
           },

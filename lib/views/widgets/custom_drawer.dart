@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tmdb_movies_app/views/pages/home_tv_page.dart';
+import 'package:tmdb_movies_app/views/pages/home_page.dart';
 import 'package:tmdb_movies_app/views/pages/watchlist_movies_page.dart';
 
 import '../pages/about_page.dart';
@@ -32,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
             leading: const Icon(Icons.live_tv),
             title: const Text('Tv Shows'),
             onTap: () {
-              Navigator.pushNamed(context, HomeTvPage.ROUTE_NAME);
+              Navigator.pushNamed(context, HomePage.ROUTE_NAME);
             },
           ),
           ListTile(

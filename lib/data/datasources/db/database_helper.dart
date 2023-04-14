@@ -29,8 +29,12 @@ class DatabaseHelper {
     final path = await getDatabasesPath();
     final databasePath = '$path/ditonton.db';
 
-    var db = await openDatabase(databasePath,
-        version: 3, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    var db = await openDatabase(
+      databasePath,
+      version: 3,
+      onCreate: _onCreate,
+      // onUpgrade: _onUpgrade,
+    );
     return db;
   }
 
@@ -39,6 +43,14 @@ class DatabaseHelper {
       CREATE TABLE $_tblWatchlist (
         id INTEGER PRIMARY KEY AUTO_INCREMENT,
         title TEXT,
+        overview TEXT,
+        posterPath TEXT
+      );
+    ''');
+    await db.execute('''
+      CREATE TABLE $_tblTvWatchlist (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
         overview TEXT,
         posterPath TEXT
       );

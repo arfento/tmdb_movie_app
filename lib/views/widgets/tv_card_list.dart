@@ -26,28 +26,37 @@ class TvCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            Card(
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(color: kDavysGrey, blurRadius: 2)],
+                  // border: Border.all(width: 1, color: kWhite),
+                  borderRadius: BorderRadius.circular(8),
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [kGrey, kRichBlack])),
               child: Container(
-                width: double.infinity,
+                height: 80,
                 margin: const EdgeInsets.only(
-                  left: 16 + 80 + 16,
-                  bottom: 8,
-                  right: 8,
-                ),
+                    left: 16 + 110 + 8, bottom: 16, right: 8, top: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       tv.name ?? '-',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: kHeading6,
+                      style: kSubtitle.copyWith(
+                          color: kMikadoYellow, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     Text(
                       tv.overview ?? '-',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      style: kBodyText,
                     ),
                   ],
                 ),
@@ -55,19 +64,26 @@ class TvCard extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(
-                left: 16,
+                left: 12,
                 bottom: 16,
               ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
-                  width: 80,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+              width: 110,
+              height: 130,
+              child: CachedNetworkImage(
+                imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(),
                 ),
+                imageBuilder: (context, imageProvider) => Container(
+                  width: 110,
+                  height: 130,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      border: Border.all(width: 1, color: kMikadoYellow),
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover)),
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
           ],

@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/tv_season_bloc/tv_season_bloc.dart';
 import '../../common/constants.dart';
 import '../../domain/entities/episode.dart';
-import '../../common/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../provider/tv_provider/tv_season_notifier.dart';
 
 class TvSeasonPage extends StatefulWidget {
   static const ROUTE_NAME = '/tv-season';
@@ -23,8 +22,8 @@ class _TvSeasonPageState extends State<TvSeasonPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TvSeasonNotifier>(context, listen: false)
-          .fetchTvSeasons(widget.id, widget.seasonNumber);
+      Provider.of<TvSeasonBloc>(context, listen: false)
+          .add(FetchTvSeason(widget.id, widget.seasonNumber));
     });
   }
 
@@ -37,14 +36,14 @@ class _TvSeasonPageState extends State<TvSeasonPage> {
             icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.of(context).pop(),
           )),
-      body: Consumer<TvSeasonNotifier>(
-        builder: (context, provider, child) {
-          if (provider.state == RequestState.Loading) {
+      body: BlocBuilder<TvSeasonBloc, TvSeasonState>(
+        builder: (context, state) {
+          if (state is TvSeasonLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.state == RequestState.Loaded) {
-            final tvSeason = provider.tvSeason;
+          } else if (state is TvSeasonHasData) {
+            final tvSeason = state.tvSeason;
             bool isOnGoing = false;
             final episodes = [];
             for (Episode eps in tvSeason.episodes) {
@@ -69,7 +68,7 @@ class _TvSeasonPageState extends State<TvSeasonPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: ((context, index) {
-                        return EpisodeCard(
+                        return TVEpisodeCard(
                           episode: episodes[index],
                         );
                       }),
@@ -90,8 +89,12 @@ class _TvSeasonPageState extends State<TvSeasonPage> {
                 ),
               ),
             ));
+          } else if (state is TvSeasonError) {
+            return Text(state.messsage);
           } else {
-            return Text(provider.message);
+            return const Center(
+              child: Text('Failed'),
+            );
           }
         },
       ),
@@ -99,9 +102,9 @@ class _TvSeasonPageState extends State<TvSeasonPage> {
   }
 }
 
-class EpisodeCard extends StatelessWidget {
+class TVEpisodeCard extends StatelessWidget {
   final Episode episode;
-  const EpisodeCard({Key? key, required this.episode}) : super(key: key);
+  const TVEpisodeCard({Key? key, required this.episode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

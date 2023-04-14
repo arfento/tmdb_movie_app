@@ -1,3 +1,6 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:tmdb_movies_app/common/constants.dart';
+
 import 'watchlist_movies_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,12 +22,17 @@ class _WatchlistPageState extends State<WatchlistPage> {
       child: Scaffold(
         appBar: AppBar(
           bottom: const TabBar(
+            indicatorColor: kMikadoYellow,
             tabs: [
-              Tab(icon: Icon(Icons.movie), text: "Movie"),
-              Tab(icon: Icon(Icons.live_tv_rounded), text: "Tv Show"),
+              Tab(icon: Icon(EvaIcons.video), text: "Movie"),
+              Tab(icon: Icon(EvaIcons.tv), text: "Tv Show"),
             ],
           ),
           title: const Text('Watchlist'),
+          leading: IconButton(
+            icon: Icon(EvaIcons.arrowBack),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: TabBarView(
           children: [WatchlistMoviesPage(), WatchlistTvsPage()],

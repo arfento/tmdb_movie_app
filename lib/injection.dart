@@ -26,20 +26,21 @@ import 'package:tmdb_movies_app/domain/usecases/tv_usecase/get_tv_detail.dart';
 import 'package:tmdb_movies_app/domain/usecases/tv_usecase/get_tv_recommendations.dart';
 import 'package:tmdb_movies_app/domain/usecases/tv_usecase/get_watchlist_tv_status.dart';
 import 'package:tmdb_movies_app/domain/usecases/tv_usecase/search_tvs.dart';
-import 'package:tmdb_movies_app/views/provider/movie_provider/movie_detail_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/movie_provider/movie_list_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/movie_provider/movie_search_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/movie_provider/popular_movies_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/movie_provider/top_rated_movies_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/movie_provider/watchlist_movies_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/on_the_air_tvs_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/popular_tvs_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/top_rated_tvs_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/tv_detail_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/tv_list_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/tv_search_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/tv_season_notifier.dart';
-import 'package:tmdb_movies_app/views/provider/tv_provider/watchlist_tv_notifier.dart';
+import 'package:tmdb_movies_app/views/bloc/movie_detail_bloc/movie_detail_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/movie_search_bloc/movie_search_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/on_the_air_tvs_bloc/on_the_air_tvs_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/popular_movies_bloc/popular_movies_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/popular_tvs_bloc/popular_tvs_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/top_rated_movies_bloc/top_rated_movies_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/top_rated_tvs_bloc/top_rated_tvs_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/tv_detail_bloc/tv_detail_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/tv_search_bloc/tv_search_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/tv_season_bloc/tv_season_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/tv_watchlist_bloc/tv_watchlist_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/watchlist_movie_bloc/watchlist_movie_bloc.dart';
+import 'package:tmdb_movies_app/views/bloc/watchlist_tv_bloc/watchlist_tv_bloc.dart';
 
 import 'domain/usecases/tv_usecase/get_tv_season.dart';
 import 'domain/usecases/tv_usecase/get_watchlist_tvs.dart';
@@ -49,80 +50,66 @@ import 'domain/usecases/tv_usecase/save_watchlist_tv.dart';
 final locator = GetIt.instance;
 
 void init() {
-  //provider
+  //bloc
   locator.registerFactory(
-    () => MovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-    ),
-  );
-
-  locator.registerFactory(
-    () => MovieDetailNotifier(
+    () => MovieDetailBloc(
       getMovieDetail: locator(),
       getMovieRecommendations: locator(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => MovieSearchBloc(locator()),
+  );
+  locator.registerFactory(
+    () => MovieWatchlistBloc(
       getWatchlistStatus: locator(),
-      saveWatchlist: locator(),
       removeWatchlist: locator(),
+      saveWatchlist: locator(),
     ),
   );
-
   locator.registerFactory(
-    () => MovieSearchNotifier(searchMovies: locator()),
+    () => NowPlayingMoviesBloc(getNowPlayingMovies: locator()),
   );
   locator.registerFactory(
-    () => PopularMoviesNotifier(getPopularMovies: locator()),
+    () => OnTheAirTvsBloc(getOnTheAirTvs: locator()),
   );
   locator.registerFactory(
-    () => TopRatedMoviesNotifier(getTopRatedMovies: locator()),
-  );
-  locator.registerFactory(
-    () => WatchlistMovieNotifier(getWatchlistMovies: locator()),
+    () => PopularMoviesBloc(popularMovies: locator()),
   );
 
+  locator.registerFactory(() => PopularTvsBloc(popularTvs: locator()));
+
   locator.registerFactory(
-    () => TvListNotifier(
-        getOnTheAirTvs: locator(),
-        getPopularTvs: locator(),
-        getTopRatedTvs: locator()),
+    () => TopRatedMoviesBloc(topRatedMovies: locator()),
   );
   locator.registerFactory(
-    () => TvDetailNotifier(
-      getWatchlistTvStatus: locator(),
-      saveWatchlistTv: locator(),
-      removeWatchlistTv: locator(),
-      getTvRecommendations: locator(),
+    () => TopRatedTvsBloc(topRatedTvs: locator()),
+  );
+  locator.registerFactory(
+    () => TvDetailBloc(
       getTvDetail: locator(),
+      getTvRecommendations: locator(),
     ),
   );
   locator.registerFactory(
-    () => TvSearchNotifier(searchTvs: locator()),
+    () => TvSeasonBloc(getTvSeason: locator()),
   );
   locator.registerFactory(
-    () => OnTheAirTvsNotifier(
-      getOnTheAirTvs: locator(),
+    () => TvSearchBloc(locator()),
+  );
+  locator.registerFactory(
+    () => TvWatchlistBloc(
+      getWatchlistStatus: locator(),
+      removeWatchlist: locator(),
+      saveWatchlist: locator(),
     ),
   );
   locator.registerFactory(
-    () => PopularTvsNotifier(
-      getPopularMovies: locator(),
-    ),
+    () => WatchlistMovieBloc(watchlistMovies: locator()),
   );
   locator.registerFactory(
-    () => TopRatedTvsNotifier(
-      getTopRatedTvs: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => WatchlistTvNotifier(
-      getWatchlistTvs: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvSeasonNotifier(
-      getTvSeason: locator(),
-    ),
+    () => WatchlistTvBloc(watchlistTvs: locator()),
   );
 
   //use case
