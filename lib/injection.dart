@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:tmdb_movies_app/common/http_ssl_pinning.dart';
 import 'package:tmdb_movies_app/data/datasources/db/database_helper.dart';
 import 'package:tmdb_movies_app/data/datasources/movie_local_data_source.dart';
 import 'package:tmdb_movies_app/data/datasources/movie_remote_data_source.dart';
@@ -165,5 +166,6 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  // locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => HttpSSLPinning.client);
 }

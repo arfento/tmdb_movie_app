@@ -127,22 +127,24 @@ class DetailContent extends StatelessWidget {
                     width: screenWidth,
                     height: 200,
                     fit: BoxFit.cover,
-                    placeholder: (context, url) => Center(
+                    placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   Container(
                     width: screenWidth,
                     height: 200,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         gradient: LinearGradient(
                             colors: [kRichBlack, Colors.transparent],
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter)),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 140, left: 16, right: 16),
+                    margin:
+                        const EdgeInsets.only(top: 140, left: 16, right: 16),
                     child: Row(
                       children: [
                         ClipRRect(
@@ -152,34 +154,34 @@ class DetailContent extends StatelessWidget {
                             width: 80,
                             height: 120,
                             fit: BoxFit.cover,
-                            placeholder: (context, url) => Center(
+                            placeholder: (context, url) => const Center(
                               child: CircularProgressIndicator(),
                             ),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                const Icon(Icons.error),
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
                         Expanded(
                           child: Container(
-                            margin: EdgeInsets.only(top: 200 - 160),
+                            margin: const EdgeInsets.only(top: 200 - 160),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   _showYear(tv.firstAirDate),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                 ),
                                 Text(
                                   tv.name,
                                   style: kHeading6,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 4,
                                 ),
                                 Row(
@@ -187,18 +189,20 @@ class DetailContent extends StatelessWidget {
                                     RatingBarIndicator(
                                       rating: tv.voteAverage / 2,
                                       itemCount: 5,
-                                      itemBuilder: (context, index) => Icon(
+                                      itemBuilder: (context, index) =>
+                                          const Icon(
                                         Icons.star,
                                         color: kMikadoYellow,
                                       ),
                                       itemSize: 18,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 4,
                                     ),
                                     Text(
                                       '${tv.voteAverage}',
-                                      style: TextStyle(color: kMikadoYellow),
+                                      style:
+                                          const TextStyle(color: kMikadoYellow),
                                     )
                                   ],
                                 ),
@@ -211,7 +215,7 @@ class DetailContent extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Padding(
@@ -229,49 +233,49 @@ class DetailContent extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8), color: kGrey),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         isAddedWatchlist
-                            ? Icon(
+                            ? const Icon(
                                 EvaIcons.checkmark,
                                 size: 16,
                                 color: kMikadoYellow,
                               )
-                            : Icon(
+                            : const Icon(
                                 EvaIcons.plus,
                                 size: 16,
                                 color: kWhite,
                               ),
-                        SizedBox(
+                        const SizedBox(
                           width: 4,
                         ),
-                        Text('Watchlist'),
+                        const Text('Watchlist'),
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Genre',
                   style: kSubtitle,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               SizedBox(
                 height: 25,
                 child: ListView(
-                  padding: EdgeInsets.only(left: 16),
+                  padding: const EdgeInsets.only(left: 16),
                   scrollDirection: Axis.horizontal,
                   children: tv.genres
                       .map(
@@ -280,12 +284,12 @@ class DetailContent extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(width: 1, color: kGrey),
                               color: kRichBlack),
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          margin: EdgeInsets.only(right: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          margin: const EdgeInsets.only(right: 6),
                           child: Center(
                             child: Text(
                               genre.name,
-                              style: TextStyle(fontSize: 12, height: 1),
+                              style: const TextStyle(fontSize: 12, height: 1),
                             ),
                           ),
                         ),
@@ -293,17 +297,17 @@ class DetailContent extends StatelessWidget {
                       .toList(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Description',
                   style: kSubtitle,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Padding(
@@ -313,35 +317,33 @@ class DetailContent extends StatelessWidget {
                   trimLines: 3,
                   trimMode: TrimMode.Line,
                   colorClickableText: kWhite,
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
-              (tv.seasons.length == 1)
-                  ? Container()
-                  : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        'Seasons',
-                        style: kSubtitle,
-                      ),
-                    ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  (tv.seasons.length == 1) ? 'Season 1' : 'Seasons',
+                  style: kSubtitle,
+                ),
+              ),
               SeasonContent(tv),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               (recommendations.length == 0)
                   ? Container()
                   : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         'Similar Movies',
                         style: kSubtitle,
                       ),
                     ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               (recommendations.length == 0)
@@ -349,7 +351,7 @@ class DetailContent extends StatelessWidget {
                   : Container(
                       height: 150,
                       child: ListView.builder(
-                        padding: EdgeInsets.only(left: 16),
+                        padding: const EdgeInsets.only(left: 16),
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           final tv = recommendations[index];
@@ -358,7 +360,7 @@ class DetailContent extends StatelessWidget {
                         itemCount: recommendations.length,
                       ),
                     ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
             ]),

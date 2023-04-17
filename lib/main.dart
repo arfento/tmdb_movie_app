@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb_movies_app/common/constants.dart';
+import 'package:tmdb_movies_app/common/http_ssl_pinning.dart';
 import 'package:tmdb_movies_app/common/utils.dart';
 import 'package:tmdb_movies_app/views/bloc/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:tmdb_movies_app/views/bloc/movie_search_bloc/movie_search_bloc.dart';
@@ -30,11 +32,13 @@ import 'package:tmdb_movies_app/views/pages/top_rated_movies_page.dart';
 import 'package:tmdb_movies_app/views/pages/top_rated_tvs_page.dart';
 import 'package:tmdb_movies_app/views/pages/tv_detail_page.dart';
 import 'package:tmdb_movies_app/views/pages/tv_season_page.dart';
-import 'package:tmdb_movies_app/views/pages/watchlist_movies_page.dart';
 import 'package:tmdb_movies_app/views/pages/watchlist_page.dart';
 import 'injection.dart' as di;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await HttpSSLPinning.init();
   di.init();
   runApp(const MyApp());
 }

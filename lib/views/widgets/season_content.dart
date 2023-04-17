@@ -8,7 +8,7 @@ import 'package:tmdb_movies_app/views/widgets/episode_card.dart';
 
 class SeasonContent extends StatefulWidget {
   final TvDetail tv;
-  const SeasonContent(this.tv);
+  const SeasonContent(this.tv, {super.key});
 
   @override
   State<SeasonContent> createState() => _SeasonContentState();
@@ -29,50 +29,54 @@ class _SeasonContentState extends State<SeasonContent> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 40.0,
-          child: ListView.builder(
-            padding: const EdgeInsets.only(left: 16),
-            physics: const ClampingScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: widget.tv.seasons.length,
-            itemBuilder: (BuildContext context, int index) => InkWell(
-              onTap: () {
-                setState(() {
-                  _selectIndex = index;
-                  BlocProvider.of<TvSeasonBloc>(context, listen: false)
-                    ..add(FetchTvSeason(
-                        widget.tv.id, widget.tv.seasons[index].seasonNumber));
-                });
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                height: 40,
-                margin: const EdgeInsets.only(right: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Season ${widget.tv.seasons[index].seasonNumber}',
-                      style: TextStyle(
-                          color: (_selectIndex == index) ? kWhite : kDavysGrey),
+        widget.tv.seasons.length == 1
+            ? Container()
+            : SizedBox(
+                height: 40.0,
+                child: ListView.builder(
+                  padding: const EdgeInsets.only(left: 16),
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.tv.seasons.length,
+                  itemBuilder: (BuildContext context, int index) => InkWell(
+                    onTap: () {
+                      setState(() {
+                        _selectIndex = index;
+                        BlocProvider.of<TvSeasonBloc>(context, listen: false)
+                            .add(FetchTvSeason(widget.tv.id,
+                                widget.tv.seasons[index].seasonNumber));
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 6),
+                      height: 40,
+                      margin: const EdgeInsets.only(right: 8),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Season ${widget.tv.seasons[index].seasonNumber}',
+                            style: TextStyle(
+                                color: (_selectIndex == index)
+                                    ? kWhite
+                                    : kDavysGrey),
+                          ),
+                          (_selectIndex == index)
+                              ? Container(
+                                  height: 4,
+                                  width: 12,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: kMikadoYellow),
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
-                    (_selectIndex == index)
-                        ? Container(
-                            height: 4,
-                            width: 12,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: kMikadoYellow),
-                          )
-                        : Container(),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
         const SizedBox(
           height: 8,
         ),

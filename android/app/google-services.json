@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "116548330558",
+    "firebase_url": "https://tmdb-movies-app-cb67a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tmdb-movies-app-cb67a",
+    "storage_bucket": "tmdb-movies-app-cb67a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116548330558:android:a7fa7b282f377668005d6f",
+        "android_client_info": {
+          "package_name": "com.example.tmdb_movies_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116548330558-md13hvt4bngiqhbor8itnll2damrj7af.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS63l3YBV_H3FZQryFQdR-URpZFm4SBS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116548330558-md13hvt4bngiqhbor8itnll2damrj7af.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "116548330558-qraugheqheai2ergt75uftqfeo6kq55j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tmdbMoviesApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
