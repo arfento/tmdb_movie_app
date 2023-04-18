@@ -1,38 +1,37 @@
+import 'package:about/about.dart';
+import 'package:core/common/constants.dart';
+import 'package:core/common/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:tmdb_movies_app/common/constants.dart';
+import 'package:movie/presentation/bloc/movie_detail_bloc/movie_detail_bloc.dart';
+import 'package:movie/presentation/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
+import 'package:movie/presentation/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
+import 'package:movie/presentation/bloc/popular_movies_bloc/popular_movies_bloc.dart';
+import 'package:movie/presentation/bloc/top_rated_movies_bloc/top_rated_movies_bloc.dart';
+import 'package:movie/presentation/pages/movie_detail_page.dart';
+import 'package:movie/presentation/pages/popular_movies_page.dart';
+import 'package:movie/presentation/pages/top_rated_movies_page.dart';
+import 'package:search/presentation/bloc/movie_search_bloc/movie_search_bloc.dart';
+import 'package:search/presentation/bloc/tv_search_bloc/tv_search_bloc.dart';
+import 'package:search/presentation/pages/search_page.dart';
 import 'package:tmdb_movies_app/common/http_ssl_pinning.dart';
-import 'package:tmdb_movies_app/common/utils.dart';
-import 'package:tmdb_movies_app/views/bloc/movie_detail_bloc/movie_detail_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/movie_search_bloc/movie_search_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/movie_watchlist_bloc/movie_watchlist_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/now_playing_movies_bloc/now_playing_movies_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/on_the_air_tvs_bloc/on_the_air_tvs_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/popular_movies_bloc/popular_movies_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/popular_tvs_bloc/popular_tvs_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/top_rated_movies_bloc/top_rated_movies_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/top_rated_tvs_bloc/top_rated_tvs_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/tv_detail_bloc/tv_detail_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/tv_search_bloc/tv_search_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/tv_season_bloc/tv_season_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/tv_watchlist_bloc/tv_watchlist_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/watchlist_movie_bloc/watchlist_movie_bloc.dart';
-import 'package:tmdb_movies_app/views/bloc/watchlist_tv_bloc/watchlist_tv_bloc.dart';
-import 'package:tmdb_movies_app/views/pages/about_page.dart';
-import 'package:tmdb_movies_app/views/pages/home_page.dart';
-import 'package:tmdb_movies_app/views/pages/movie_detail_page.dart';
-import 'package:tmdb_movies_app/views/pages/on_the_air_tvs_page.dart';
-import 'package:tmdb_movies_app/views/pages/popular_movies_page.dart';
-import 'package:tmdb_movies_app/views/pages/popular_tvs_page.dart';
-import 'package:tmdb_movies_app/views/pages/search_page.dart';
-import 'package:tmdb_movies_app/views/pages/top_rated_movies_page.dart';
-import 'package:tmdb_movies_app/views/pages/top_rated_tvs_page.dart';
-import 'package:tmdb_movies_app/views/pages/tv_detail_page.dart';
-import 'package:tmdb_movies_app/views/pages/tv_season_page.dart';
-import 'package:tmdb_movies_app/views/pages/watchlist_page.dart';
+import 'package:tmdb_movies_app/presentation/pages/home_page.dart';
+import 'package:tv/presentation/bloc/on_the_air_tvs_bloc/on_the_air_tvs_bloc.dart';
+import 'package:tv/presentation/bloc/popular_tvs_bloc/popular_tvs_bloc.dart';
+import 'package:tv/presentation/bloc/top_rated_tvs_bloc/top_rated_tvs_bloc.dart';
+import 'package:tv/presentation/bloc/tv_detail_bloc/tv_detail_bloc.dart';
+import 'package:tv/presentation/bloc/tv_season_bloc/tv_season_bloc.dart';
+import 'package:tv/presentation/bloc/tv_watchlist_bloc/tv_watchlist_bloc.dart';
+import 'package:tv/presentation/pages/on_the_air_tvs_page.dart';
+import 'package:tv/presentation/pages/popular_tvs_page.dart';
+import 'package:tv/presentation/pages/top_rated_tvs_page.dart';
+import 'package:tv/presentation/pages/tv_detail_page.dart';
+import 'package:tv/presentation/pages/tv_season_page.dart';
+import 'package:watchlist/presentation/bloc/watchlist_movie_bloc/watchlist_movie_bloc.dart';
+import 'package:watchlist/presentation/bloc/watchlist_tv_bloc/watchlist_tv_bloc.dart';
+import 'package:watchlist/presentation/pages/watchlist_page.dart';
 import 'injection.dart' as di;
 
 Future<void> main() async {
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => di.locator<MovieSearchBloc>(),
@@ -111,7 +110,7 @@ class MyApp extends StatelessWidget {
             case HomePage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => const HomePage());
             case WatchlistPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => WatchlistPage());
+              return MaterialPageRoute(builder: (_) => const WatchlistPage());
 
             case PopularMoviesPage.ROUTE_NAME:
               return CupertinoPageRoute(
@@ -137,11 +136,13 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case OnTheAirTvsPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => OnTheAirTvsPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const OnTheAirTvsPage());
             case PopularTvsPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => PopularTvsPage());
+              return CupertinoPageRoute(builder: (_) => const PopularTvsPage());
             case TopRatedTvsPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => TopRatedTvsPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const TopRatedTvsPage());
             case TvSeasonPage.ROUTE_NAME:
               TvSeasonArguments arguments =
                   settings.arguments as TvSeasonArguments;

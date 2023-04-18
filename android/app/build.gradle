@@ -23,10 +23,11 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -47,10 +48,12 @@ android {
         applicationId "com.example.tmdb_movies_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
+
     }
 
     buildTypes {
@@ -67,9 +70,9 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.android.tools.build:gradle:4.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    implementation 'com.google.gms:google-services:4.3.10'
-    implementation 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
+    implementation 'com.dipien:bye-bye-jetifier:1.2.1'
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.firebase:firebase-analytics'
+
 }
